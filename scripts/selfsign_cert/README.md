@@ -1,5 +1,17 @@
 # Self-Signed Certificate & CSR Generator
 
+* [Description](#description)
+* [Features](#features)
+* [Requirements](#requirements)
+* [Usage](#usage)
+* [Options](#options)
+* [Output Files](#output-files)
+* [Security Notices](#security-notices)
+* [Troubleshooting](#troubleshooting)
+* [When to Use Each Certificate Type](#when-to-use-each-certificate-type)
+
+## Description
+
 A flexible Python script to generate **self-signed X.509 certificates** or **Certificate Signing Requests (CSRs)** with support for:
 
 - RSA and ECDSA (P-256, P-384, P-521) keys
@@ -45,8 +57,8 @@ pip install cryptography PyYAML
 ### Using a Config File (Recommended for automation)
 
 Create a configuration file with your subject details. Both `.json` and `.yaml` filetypes are supported. See for examples:
-* `config/subject.json`
-* `config/subject.yaml`
+* [`config/subject.json`](config/subject.json)
+* [`config/subject.yaml`](config/subject.yaml)
 
 
 Run with config:
