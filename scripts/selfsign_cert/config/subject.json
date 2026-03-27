@@ -1,0 +1,10 @@
+{
+  "common_name": "api.example.com",
+  "country": "US",
+  "state": "Illinois",
+  "locality": "Chicago",
+  "organization": "MyCompany Inc.",
+  "ou": "DevOps",
+  "email": "admin@example.com",
+  "business_cat": "Private Organization"
+}
