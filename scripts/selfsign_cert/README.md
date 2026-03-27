@@ -7,7 +7,14 @@ A flexible Python script to generate **self-signed X.509 certificates** or **Cer
 - Multiple export formats: PEM, DER (.cer), PKCS#8, and PKCS#12 (.p12/.pfx)
 - Subject fields via CLI arguments **or** external config file (JSON/YAML)
 
-Perfect for DevOps workflows, internal PKI, testing, Ansible automation, and containerized environments.
+**Important distinctions:**
+- **RSA vs ECDSA** = Which **private key algorithm** to use.
+- **Self-signed vs CSR** = Whether you want a finished certificate now, or a request to be signed by a trusted Certificate Authority.
+
+**DevOps Recommendation:**
+- Use **ECDSA (P-384)** for new internal services (better performance and smaller files)
+- Use **RSA 2048** when maximum compatibility is needed (older systems, some Windows/Java environments)
+- Use **CSR mode** (`--mode csr`) for anything that will face production or external users
 
 ## Features
 
@@ -20,6 +27,8 @@ Perfect for DevOps workflows, internal PKI, testing, Ansible automation, and con
 - **Subject configuration**: CLI flags **or** JSON/YAML config file (strict either/or)
 - **CSR mode**: Generate CSRs for submission to real CAs (Let’s Encrypt, internal PKI, etc.)
 - Works on Python 3.11+
+
+
 
 ## Requirements
 
@@ -56,8 +65,14 @@ python selfsign_cert.py --config config/subject.json --mode csr --output-dir ./c
 ### Using Command-Line Arguments (Quick / one-off)
 
 ``` Bash
-# Basic RSA self-signed certificate
+# Basic Self-Signed PEM (RSA)
 python selfsign_cert.py --common-name "test.example.com" --organization "TestCorp"
+
+# Basic Self-Signed PEM (ECDSA P-256)
+python selfsign_cert.py --common-name "test.example.com" --organization "TestCorp" --key-type ecdsa
+
+# Basic Self-Signed DER (ECDSA P-384)
+python selfsign_cert.py --common-name "test.example.com" --organization "TestCorp" --ou "DevOps" --key-type ecdsa --curve P-384 --cert-type x509_der
 
 # Full subject with ECDSA + PKCS#12
 python selfsign_cert.py \
@@ -89,6 +104,7 @@ python selfsign_cert.py --common-name "www.example.com" --mode csr
 | `--cert-type` | `x509_pem`, `x509_der`, `pkcs12`, `pkcs8` | `x509_pem` |
 | `--validity-days` | Validity period in days (self-signed only) | `365` |
 | `--output-dir` | Output directory | `.` |
+| `--file-type` | The file type (`.pfx` \| `.p12`) for PKCS#12 | `.pfx`
 | `--password` | Encryption password for PKCS#12 / PKCS#8 | (prompt if needed) |
 
 ### Certificate Subject Options
