@@ -90,8 +90,8 @@ python selfsign_cert.py --common-name "test.example.com" --organization "TestCor
 python selfsign_cert.py \
   --common-name "api.prod.local" \
   --country US \
-  --state "New York" \
-  --locality "Albany" \
+  --state "Illinois" \
+  --locality "Chicago" \
   --organization "MyCompany" \
   --ou "DevOps" \
   --key-type ecdsa \
